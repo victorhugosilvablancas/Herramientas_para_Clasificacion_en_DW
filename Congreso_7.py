@@ -8,6 +8,9 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import VotingClassifier
+import matplotlib.pyplot as plt
+from sklearn.metrics import classification_report,confusion_matrix
+from sklearn.metrics import ConfusionMatrixDisplay 
 
 import time
 start_time = time.time()
@@ -30,8 +33,20 @@ votin = VotingClassifier(
 for clf, label in zip([votin1, votin2, votin3, votin], ['Logistic Regression', 'Random Forest', 'naive Bayes', 'Ensemble']):
     scores = cross_val_score(clf, xtrain, ytrain, scoring='accuracy', cv=5)
     print("Precisión: %0.6f (+/- %0.6f) [%s]" % (scores.mean(), scores.std(), label))
+    
+    #obteniendo el reporte
+    clf.fit(xtrain, ytrain)
+    ypred = clf.predict(xtest) 
+ 
+    print(classification_report(ytest, ypred))
+
+    #matriz de confusión
+    cm = confusion_matrix(ytest, ypred)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=clf.classes_)
+    disp.plot()
+
+plt.savefig('matriz7.png')
 
 tiempo=(time.time() - start_time)
-
 print(f'Tiempo de proceso: {tiempo:.6f}')
 

@@ -4,6 +4,9 @@
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 from sklearn import svm 
+import matplotlib.pyplot as plt
+from sklearn.metrics import classification_report,confusion_matrix
+from sklearn.metrics import ConfusionMatrixDisplay 
 
 import time
 start_time = time.time()
@@ -18,10 +21,17 @@ xtrain, xtest, ytrain, ytest = train_test_split(x, y, test_size=0.15)
 #entrenando
 clf = svm.SVC() 
 clf.fit(xtrain,ytrain)
-score = clf.score(xtrain, ytrain) 
 
-#obteniendo la precisión
-print(f'Precisión: {score:.6f}')
+#obteniendo el reporte
+ypred = clf.predict(xtest) 
+ 
+print(classification_report(ytest, ypred))
+
+#matriz de confusión
+cm = confusion_matrix(ytest, ypred)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=clf.classes_)
+disp.plot()
+plt.savefig('matriz2.png')
 
 tiempo=(time.time() - start_time)
 
