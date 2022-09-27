@@ -2,19 +2,22 @@
 # -*- coding: latin-1 -*-
 
 from sklearn import tree
-from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report,confusion_matrix
 from sklearn.metrics import ConfusionMatrixDisplay 
+from sklearn.datasets import fetch_20newsgroups_vectorized
+import pandas as pd
 
 import time
 start_time = time.time()
 
-#obteniendo los datos aleatorios
-x, y = make_classification(n_samples=5000, n_features=10, 
-                           n_classes=3, 
-                           n_clusters_per_class=1)
+#obteniendo los datos
+n_samples=5000
+x, y = fetch_20newsgroups_vectorized(subset="all", return_X_y=True)
+x = x[:n_samples]
+y = y[:n_samples]
+
 #dividir entre train y test
 xtrain, xtest, ytrain, ytest = train_test_split(x, y, test_size=0.15)
 
@@ -23,9 +26,11 @@ clf = tree.DecisionTreeClassifier()
 clf.fit(xtrain, ytrain)
 
 #obteniendo el reporte
-ypred = clf.predict(xtest) 
- 
-print(classification_report(ytest, ypred))
+ypred = clf.predict(xtest)
+
+reporte = classification_report(ytest, ypred, output_dict=True)
+df = pd.DataFrame(reporte).transpose()
+df.to_csv('reporte6.csv')
 
 #matriz de confusión
 cm = confusion_matrix(ytest, ypred)

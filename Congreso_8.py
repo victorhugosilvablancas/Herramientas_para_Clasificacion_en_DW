@@ -7,6 +7,7 @@ from sklearn.neural_network import MLPClassifier
 import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report,confusion_matrix
 from sklearn.metrics import ConfusionMatrixDisplay 
+import pandas as pd
 
 import time
 start_time = time.time()
@@ -25,9 +26,11 @@ clf = MLPClassifier(solver='lbfgs', alpha=1e-5,
 clf.fit(xtrain, ytrain)
 
 #obteniendo el reporte
-ypred = clf.predict(xtest) 
- 
-print(classification_report(ytest, ypred))
+ypred = clf.predict(xtest)
+
+reporte = classification_report(ytest, ypred, output_dict=True)
+df = pd.DataFrame(reporte).transpose()
+df.to_csv('reporte8.csv')
 
 #matriz de confusión
 cm = confusion_matrix(ytest, ypred)
