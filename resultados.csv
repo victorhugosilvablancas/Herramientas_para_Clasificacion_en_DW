@@ -1,9 +1,9 @@
-'no.','algoritmo','precision','recall','f1-score','tiempo'
+num,algoritmo,precision,recall,f1-score,tiempo
 1,'Ridge regression and classification',0.8333,0.3333,0.4762,7.9737
-2,'Classification, Support Vector Machines',1.0000,0.0800,0.1481,66.8335
-3,'Classification, Stochastic Gradient Descent',1.0000,0.5000,0.6667,4.3036
+2,'Classification Support Vector Machines',1.0000,0.0800,0.1481,66.8335
+3,'Classification Stochastic Gradient Descent',1.0000,0.5000,0.6667,4.3036
 4,'Nearest Neighbours Classification',0.2727,0.1429,0.1875,3.5404
 5,'Gaussian Process Classification',0.8889,0.8889,0.8889,4.2267
-6,'Classification, Decision Trees',0.4545,0.4545,0.4545,24.4550
+6,'Classification Decision Trees',0.4545,0.4545,0.4545,24.4550
 7,'Voting Classifier (Ensemble)',0.9000,0.9534,0.9259,11.8827
-8,'Classification, Neural network models',0.9398,0.8797,0.9087,1.3256
+8,'Classification Neural network models',0.9398,0.8797,0.9087,1.3256
